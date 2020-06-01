@@ -54,9 +54,21 @@ exports.postEditProduct = (req,res,next) => {
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDescription = req.body.description;
-  const updatedProduct = new Product(prodID,updatedTitle,updatedImageUrl,updatedDescription,updatedPrice);
-  updatedProduct.save();
-  res.redirect('/admin/products');
+  
+  Product.findByPk(prodID)
+    .then(product => {
+      product.title = updatedTitle;
+      product.price = updatedPrice;
+      product.imageUrl = updatedImageUrl;
+      product.description = updatedDescription;
+      return product.save();
+    })
+    .then(result => {
+      // console.log(result);
+      res.redirect('/admin/products');
+    })
+    .catch(err => console.log(err)); 
+  
 };
 
 exports.getProducts = (req, res, next) => {

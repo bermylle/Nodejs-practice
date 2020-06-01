@@ -24,7 +24,7 @@ const sequelize = require('./util/database');
 sequelize.sync()
     .then(result => {
         //console.log(result);
-        
+        app.listen(3000);
     })
     .catch(err => {
         console.log(err);
@@ -38,4 +38,4 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+
