@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// Express
 const app = express();
 
 // Templating Engine
@@ -16,6 +17,15 @@ const shopRoutes = require('./routes/shop');
 
 // Controller
 const errorController = require('./controllers/error');
+
+// MYSQL db
+const db = require('./util/database');
+// MYSQL queries
+db.execute('SELECT * FROM products')
+    .then(() => {
+    
+})
+.catch();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
