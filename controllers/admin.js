@@ -33,18 +33,18 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect('/');
   }
   const prodID = req.params.productID;
-  Product.findById(prodID, product => {
-
-    if (!product) {
-      return res.redirect('/');
-    }
-    res.render('admin/edit-product', {
-    pageTitle: 'Edit Product',
-    path: '/admin/edit-product',
-    editing: editMode,
-    product : product
+  Product.findByPk(prodID)
+    .then(product => {
+      res.render('admin/edit-product', {
+        pageTitle: 'Edit Product',
+        path: '/admin/edit-product',
+        editing: editMode,
+        product : product
+        });
+    })
+    .catch(err => {
+      console.log(err);
     });
-  });
   
 };
 
