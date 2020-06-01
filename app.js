@@ -18,14 +18,17 @@ const shopRoutes = require('./routes/shop');
 // Controller
 const errorController = require('./controllers/error');
 
-// MYSQL db
-const db = require('./util/database');
-// MYSQL queries
-db.execute('SELECT * FROM products')
-    .then(() => {
-    
-})
-.catch();
+// Sequelize
+const sequelize = require('./util/database');
+// Create DB, tables, etc.
+sequelize.sync()
+    .then(result => {
+        //console.log(result);
+        
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
