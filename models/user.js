@@ -24,15 +24,17 @@ const User = sequelize.define('user', {
         allowNull: false
     },
 
-    phoneNumber: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
+    // phoneNumber: {
+    //     type: Sequelize.STRING,
+    //     allowNull: false
+    // },
 
-    sex: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
+    // sex: {
+    //     type: Sequelize.STRING,
+    //     allowNull: false
+    // }
+}, {
+    timestamps: false
 });
 
 module.exports = User;
