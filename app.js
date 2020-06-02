@@ -34,12 +34,16 @@ app.use((req,res,next) => {
         .catch(err => console.log(err));
 })
 
-// Associations [Relations]
-Product.belongsTo(User, { 
-    constraints: true, 
-    onDelete: 'CASCADE'
-});
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+app.use(errorController.get404);
+
+
+// Associations [Relations]
+Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 User.hasOne(Cart);
 Cart.belongsTo(User);
@@ -50,14 +54,15 @@ Product.belongsToMany(Cart, { through: CartItem });
 const sequelize = require('./util/database');
 
 // Create DB, tables, etc.
-sequelize.sync({force: true})
+sequelize
+.sync()
+//.sync({ force: true })
     .then(result => {
         return User.findByPk(1);
-        
     })
     .then(user => {
         if (!user) {
-            User.create({
+            return User.create({
                 first_name: 'Bermylle',
                 last_name: 'Razon',
                 email: 'bermylle@gmail.com'
@@ -66,6 +71,10 @@ sequelize.sync({force: true})
         return user;
     })
     .then(user => {
+        
+        return user.createCart();
+    })
+    .then(cart => {
         app.listen(3000);
     })
     .catch(err => {
@@ -73,13 +82,4 @@ sequelize.sync({force: true})
     });
 
 
-
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
-
-app.use(errorController.get404);
 
