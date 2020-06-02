@@ -18,8 +18,15 @@ const shopRoutes = require('./routes/shop');
 // Controller
 const errorController = require('./controllers/error');
 
+// Product Models
+const Product = require('./models/product');
+const User = require('./models/user');
+
+Product.belongsToUser(User, { constraints: true, onDelete: 'CASCADE'});
+
 // Sequelize
 const sequelize = require('./util/database');
+
 // Create DB, tables, etc.
 sequelize.sync()
     .then(result => {
