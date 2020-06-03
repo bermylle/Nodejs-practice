@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const Cart = require('../models/cart');
+
 
 exports.getProducts = (req, res, next) => {
   Product.findAll()
@@ -110,6 +110,17 @@ exports.postCartDeleteProduct = (req,res,next) => {
     })
     .catch(error => console.log(error));
  
+};
+
+exports.postOrder = (req,res,next) => {
+  req.user.getCart()
+  .then(cart => {
+    return cart.getProducts();
+  })
+  .then(product => {
+
+  })
+  .catch(error => console.log(error));
 };
 
 exports.getOrders = (req, res, next) => {
