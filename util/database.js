@@ -1,9 +1,5 @@
-const Sequelize = require('sequelize');
+const mongodb = require('mongodb');
 
-const sequelize = new Sequelize('nodejs', 'root', 'L14brmk993014', 
-{
-    dialect: 'mysql', 
-    host: 'localhost'
-});
+const MongoClient = mongodb.MongoClient;
 
-module.exports = sequelize;
+MongoClient.connect('mongodb+srv://bermyllerazon:<>@cluster0-mlvbq.mongodb.net/<dbname>?retryWrites=true&w=majority');
