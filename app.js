@@ -14,12 +14,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
- const adminRoutes = require('./routes/admin');
- const shopRoutes = require('./routes/shop');
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
 // Controller
 const errorController = require('./controllers/error');
 
+// Middlewares
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404);
