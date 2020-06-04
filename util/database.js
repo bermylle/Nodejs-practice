@@ -4,7 +4,7 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = (callback) => {
-    MongoClient.connect('mongodb+srv://bermyllerazon:sOlEw2ysv3wEWDbG@cluster0-mlvbq.mongodb.net/<dbname>?retryWrites=true&w=majority')
+    MongoClient.connect('mongodb+srv://bermyllerazon:sOlEw2ysv3wEWDbG@cluster0-mlvbq.mongodb.net/<dbname>?retryWrites=true&w=majority',{ useUnifiedTopology:true })
     .then(cl => {
         console.log('MONGODB connected');
         _db = cl.db();
