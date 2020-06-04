@@ -9,14 +9,14 @@ class Product {
         this.imageUrl = imageUrl;
 
         // edit admin product
-        this._id = id;
+        this._id = new mongodb.ObjectID(id)
     }
 
     save() {
         const db = getDb();
         let dbOp;
         if (this._id) {
-            dbOp = db.collection('products').updateOne({_id: new mongodb.ObjectID(this._id)}, {$set: this});
+            dbOp = db.collection('products').updateOne({_id: this._id}, {$set: this});
         } else {
             dbOp = db.collection('products').insertOne(this)
         }
