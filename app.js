@@ -28,10 +28,6 @@ app.use(errorController.get404);
 // MongoDB connector import
 const mongoConnect = require('./util/database').mongoConnect;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 27217d31c6fcf37f9efe0345644b3f09f7b26280
 app.use((req,res,next) => {
     next();
 })
@@ -39,7 +35,4 @@ mongoConnect((client) => {
     console.log(client);
     app.listen(3000);
 });
-<<<<<<< HEAD
-=======
 
->>>>>>> 27217d31c6fcf37f9efe0345644b3f09f7b26280
