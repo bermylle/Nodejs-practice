@@ -43,6 +43,19 @@ userSchema.methods.addToCart = function(product) {
     return this.save();
   };
 
+userSchema.methods.removeFromCart = function(productID) {
+    const updatedCartItems = this.cart.items.filter(item => {
+    console.log('here' + item.productId + " " + productID.toString());
+      return item.productId.toString() !== productID.toString();
+    });
+    this.cart.items = updatedCartItems;
+    return this.save();
+};
+  
+// userSchema.methods.clearCart = function() {
+//     this.cart = { items: [] };
+//     return this.save();
+// };
 
 module.exports = mongoose.model('User', userSchema);
 // const Sequelize = require('sequelize');

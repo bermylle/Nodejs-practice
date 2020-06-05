@@ -42,8 +42,10 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   req.user
-    .getCart()
-    .then(products => {
+  .populate('cart.items.productId')
+  .execPopulate()
+    .then(user => {
+      const products = user.cart.items;
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
@@ -65,24 +67,15 @@ exports.postCart = (req, res, next) => {
     });
 };
 
-exports.postCartDeleteProduct = (req,res,next) => {
+exports.postCartDeleteProduct = (req, res, next) => {
   const prodID = req.body.productID;
-  console.log(prodID);
-
   req.user
-    .getCart()
-    .then(cart => {
-      return cart.getProducts({ where: { id: prodID } });
-    })
-    .then(products => {
-      const product = products[0];
-      return product.cartItem.destroy();
-    })
+    .removeFromCart(prodID)
     .then(result => {
+      console.log("from controller" +prodID);
       res.redirect('/cart');
     })
-    .catch(error => console.log(error));
- 
+    .catch(err => console.log(err));
 };
 
 exports.postOrder = (req, res, next) => {
