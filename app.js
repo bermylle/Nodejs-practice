@@ -25,14 +25,12 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404);
 
-// MongoDB connector import
-const mongoConnect = require('./util/database').mongoConnect;
 
-app.use((req,res,next) => {
-    next();
-})
-mongoConnect((client) => {
-    //console.log(client);
-    app.listen(3000);
-});
+// Mongoose import
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb+srv://bermyllerazon:sOlEw2ysv3wEWDbG@cluster0-mlvbq.mongodb.net/shop?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true })
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => console.log(err));
