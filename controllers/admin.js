@@ -29,7 +29,7 @@ exports.postAddProduct = (req, res, next) => {
       res.redirect('/admin/products');
     }).catch(err => {
       console.log(err);
-      console.log('here ' + req.user);
+      //console.log('here ' + req.user);
     });
   
 };
@@ -71,22 +71,26 @@ exports.postEditProduct = (req,res,next) => {
       product.price = updatedPrice;
       product.description = updatedDescription;
       product.imageUrl = updatedImageUrl;
-
-      return product
-        .save()
+      return product.save()
     })
     .then(result => {
       // console.log(result);
       res.redirect('/admin/products');
     })
-    .catch(err => console.log(err)); 
+    .catch(err => {
+      console.log('here' +  updatedTitle);
+      console.log(err)
+    }); 
   
 };
 
 exports.getProducts = (req, res, next) => {
   req.user
   Product.find()
+  // .select('title price -_id')
+  // .populate('userID', 'name')
     .then(products => {
+      //console.log(products);
       res.render('admin/products', {
         products: products,
         pageTitle: 'Admin Products',

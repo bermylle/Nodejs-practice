@@ -3,7 +3,8 @@ const path = require('path');
 // 3rd Party modules
 const express = require('express');
 const bodyParser = require('body-parser');
-
+// User import
+const User = require('./models/user');
 // Express
 const app = express();
 
@@ -12,8 +13,7 @@ const errorController = require('./controllers/error');
 
 // Mongoose import
 const mongoose = require('mongoose');
-// User import
-const User = require('./models/user');
+
 
 
 // Templating Engine
