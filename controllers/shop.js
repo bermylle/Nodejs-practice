@@ -59,6 +59,7 @@ exports.postCart = (req, res, next) => {
   const productID = req.body.productID;
   Product.findById(productID)
     .then(product => {
+      
       return req.user.addToCart(product);
     })
     .then(result => {
@@ -79,14 +80,16 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-
-  
   req.user
     .populate('cart.items.productId')
-    .execPopulate()
+    .execPopulate() 
     .then(user => {
+      
       const products = user.cart.items.map(i => {
-        return { quantity: i.quantity, product: { ...i.productId._doc } };
+        return {
+           quantity: i.quantity, 
+           product: { ...i.productId._doc }, 
+          };
       });
       const order = new Order({
         user: {
@@ -95,7 +98,7 @@ exports.postOrder = (req, res, next) => {
         },
         products: products
       });
-      return order.save();
+      return order.save();  
     })
     .then(result => {
       return req.user.clearCart();
