@@ -234,3 +234,8 @@ form {
     display: none;
   }
 }
+
+.nav-title {
+  color: white;
+  font-size: 20px;
+}
