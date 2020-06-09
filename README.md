@@ -1,3 +1,3 @@
 # Nodejs-practice
-- React/Express/MongoDB
+- React/Express/MongoDB (Mongoose)
 online shop
