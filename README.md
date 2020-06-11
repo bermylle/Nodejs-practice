@@ -1,3 +1,3 @@
 # Nodejs-practice
 - React/Express/MongoDB (Mongoose)
-online shop
+online shop with CRUD function and login system
